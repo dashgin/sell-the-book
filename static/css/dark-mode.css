@@ -1,0 +1,28 @@
+[data-theme="dark"] .bg-light {
+    background-color: #424242 !important;
+}
+
+[data-theme="dark"] .nav-link,
+[data-theme="dark"] .text-dark {
+    color: #d4d4d4 !important;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .text-dark:hover {
+    color: #fff1d6 !important;
+
+}
+
+[data-theme="dark"] .active {
+    color: #fff1d6 !important;
+}
+
+input[type=search]:focus {
+    box-shadow: #000 !important;
+    border-color: #000 !important;
+}
+
+[data-theme="dark"] input[type=search]:focus {
+    box-shadow: #fff !important;
+    border-color: #fff !important;
+}

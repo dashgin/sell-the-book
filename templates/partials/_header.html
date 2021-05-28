@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <link rel="icon" href="{% static 'fav_icon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'assets/fontawesome/css/all.min.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" type="text/css" id="theme-link">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.green.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!--Header Section-->
+
+<header>
+    <div class="container-fluid bg-light py-1 border-bottom border-muted">
+        <div class="container-sm row bg-dark mx-auto rounded-3">
+               <div class="col-6 text-center text-sm-start my-1 align-self-center">
+                <a href="{% url 'home' %}">
+                    <img class="image" height="40px" src="{% static 'images/logo.png' %}" alt="STB">
+                </a>
+            </div>
+            <div class="d-flex col-6 flex-sm-row my-1 my-sm-0 justify-content-evenly justify-content-sm-end align-self-center">
+                {% if user.is_authenticated %}
+                    <a class="btn text-nowrap bg-dark text-decoration-none fs-5 text-light"
+                       href="{% url 'product-new' %}"><i class="fas fa-plus"></i> <span class="d-none d-sm-inline-block text-capitalize">Kitab yerləşdirin</span>
+                    </a>
+                    <li class="nav-item dropdown" style="z-index: 9999">
+                        <a class="nav-link dropdown-toggle btn text-light text-capitalize fs-6" href="#"
+                           role="button" data-bs-toggle="dropdown"  data-mdb-toggle="dropdown" aria-expanded="false">
+                            <span class="bg-success py-2 px-3 ">{{ user.email|first }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item text-center" href="{% url 'profile' request.user.id %}">Profil</a>
+                                </li>
+                                {% if user.is_superuser %}
+                                    <li><a class="dropdown-item text-center" href="{% url 'admin:index' %}">Admin
+                                        Panel</a></li>
+                                {% endif %}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form class="text-center" method="post" action="{% url 'account_logout' %}">
+                                        {% csrf_token %}
+                                        <button class="dropdown-item btn" type="submit">Çıxış <i
+                                                class="fas fa-sign-out-alt"></i></button>
+                                    </form>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <a class="btn  text-nowrap text-decoration-none text-light" href="{% url 'ls' %}">
+                        Sayta giriş <i class="fas fa-sign-in-alt"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Messages -->
+    <div class="fixed-bottom text-end me-2">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="d-inline-block alert alert-{{ message.tags }} fade show" role="alert">
+                    <span> {{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <!-- Messages -->
+</header>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm nav navbar-dark sticky-top bg-primary shadow shadow-sm">
+    <div class="container">
+        <button class="navbar-toggler ms-auto shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="text-dark navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link bg- ps-2 {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                       aria-current="page" href="{% url 'home' %}">STB</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg- ms-sm-2 ps-2 {% if request.resolver_match.url_name == 'product-list' or request.resolver_match.url_name == 'search' or request.resolver_match.url_name == 'products-by-category' %}active{% endif %}"
+                       href="{% url 'product-list' %}">Kitablar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg- ms-sm-2 ps-2 {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                       href="{% url 'contact' %}">Əlaqə</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg- ms-sm-2 ps-2 {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                       href="{% url 'about' %}">Haqqımızda</a>
+                </li>
+            </ul>
+            <form id="search-form" class="d-flex position-relative" method="GET" action="{% url 'search' %}">
+                <label id="search-label" for="search-input"></label>
+                <input class="px-2" id="search-input" name="q" type="search" value="{{ request.GET.q }}"
+                       placeholder="Axtar..." required/>
+                <button class="btn btn-danger text-white p-1 fs-5" id="search-btn" type="submit"><i
+                        class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>

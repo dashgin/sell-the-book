@@ -1,0 +1,31 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}E-poçt ünvanınızı təsdiq edin{% endblock %}
+
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="mb-3">E-poçt ünvanı təsdiqi</h1>
+
+        {% if confirmation %}
+            <p><a class="text-primary"
+                  href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> e-poçt
+                ünvanının sizə aid olduğunu təsdiq edin.</p>
+
+            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit">Təsdiq et</button>
+            </form>
+        {% else %}
+            {% url 'account_email' as email_url %}
+
+            <p>Bu e-poçt təsdiq linki etibarsızdır və ya müddəti bitmişdir. Zəhmət olmasa yeni link əldə etmək üçün
+                <a class="text-primary" href="{{ email_url }}">qeydiyattdan keçin</a>.</p>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

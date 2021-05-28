@@ -1,0 +1,34 @@
+{% extends 'partials/_base.html' %}
+{% load humanize %}
+{% block title %}Tənzimləmələr{% endblock %}
+{% block content %}
+
+    <div class="container pt-4">
+        <div class="row shadow bg-gradient bg-primary justify-content-sm-between">
+            <a href="{% url 'profile' request.user.id %}"  class="col-1 py-1 btn-outline-primary text-center">
+                <span class="fs-3 text-white">
+                    <i class="fas fa-chevron-left"></i>
+                </span>
+            </a>
+            <p class="text-white display-5 text-capitalize col-11 mb-2 ps-4">{{ request.user.full_name }}</p>
+        </div>
+        <div class="row my-3 mx-auto justify-content-center pt-3 pt-md-5">
+            <div class="col-md-6 ps-4 mb-4  align-self-center">
+                <p class="text-muted">Email: {{ request.user.email }}</p>
+                <p class="text-muted">Elan sayı: {{ user_total_books }}</p>
+                <p class="text-muted">Qoşulma tarixi: {{ request.user.date_joined|date:" d F Y" }}</p>
+            </div>
+            <div class="col-md-6 text-center align-self-center">
+                <a class="btn btn-outline-primary mb-1 w-50 text-nowrap" href="{% url 'account_change_password' %}">
+                    Parolu dəyişdir
+                </a>
+                <a class="btn btn-outline-danger w-50" href="{% url 'account-delete' request.user.id %}">
+                    Hesabı sil
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

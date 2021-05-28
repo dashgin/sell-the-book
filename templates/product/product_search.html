@@ -1,0 +1,86 @@
+{% extends 'partials/_base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %} Kitablar {% endblock %}
+{% block content %}
+
+    <!-- Books Section -->
+    <section class="books">
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                {% for book in products %}
+                    <div class="col-sm-6 col-md-5 my-2">
+                          <div class="card hover-shadow">
+                            <div class="row g-0 ">
+                                <div class="col-5">
+                                    <img class="card-img-top h-100" src="{{ book.image.url }}"
+                                         alt="Card image cap">
+                                </div>
+                                <div class="col-7">
+                                    <div class="card-body">
+                                        {#<span class="text-danger fs-4 position-absolute top-0 end-0 me-1 heart"><i class="far fa-heart p-1"></i></span>#}
+                                        <h5 class="card-text">
+                                            <a href="{% url 'product-detail' book.slug %}" class="text-dark">
+                                                {{ book.title }}
+                                            </a>
+                                        </h5>
+                                        <h6>{{ book.author }}</h6>
+                                        <h5><strong>{{ book.price }} AZN</strong></h5>
+                                        <h6 class="text-muted my-0 py-0">
+                                            {{ book.created_at|naturaltime }}
+                                        </h6>
+                                        <h6>
+                                            {{ book.view_count }}
+                                            <i class="fas fa-eye"></i>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Pagination -->
+            <nav class="my-4" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if is_paginated %}
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link border border-2"
+                                   href="?page=1&q={{ request.GET.q }}">&lang;&lang;</a>
+                            </li>
+                            {% if page_obj.number == 2 %}
+                                <li class="page-item">
+                                    <a class="page-link border border-2" href="?page=1&q={{ request.GET.q }}">&lang;</a>
+                                </li>
+                            {% elif page_obj.has_previous and page_obj.number != 2 %}
+                                <li class="page-item">
+                                    <a class="page-link border border-2"
+                                       href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">&lang;</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                        <li class="page-item active">
+                            <span class="page-link bg-dark border border-2 border-dark">{{ page_obj.number }}</span>
+                        </li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link border border-2"
+                                   href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">
+                                    &rang;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link border border-2"
+                                   href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}">
+                                    &rang;&rang;
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+{% endblock %}

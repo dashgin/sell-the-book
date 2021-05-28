@@ -1,0 +1,19 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% block content %}
+
+    <section>
+        <div class="container">
+            <div class="row pt-5">
+                <div class="mx-auto col-sm-6">
+                <form method="post" class="form-control ">
+                    {% csrf_token %}
+                    <p>Elanı silmək istədiyinizə əminsiniz?</p>
+                    <a href="{% url 'profile' request.user.id %}" class="btn btn-outline-secondary">Xeyr</a>
+                    <button type="submit" class="btn btn-outline-danger">Bəli, Sil</button>
+                </form>
+                    </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

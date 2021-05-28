@@ -1,0 +1,8 @@
+{% include "partials/_header.html" %}
+<title>{% block title %} {% endblock %}</title>
+<div class="min-vh-100">
+    {% block content %}
+
+    {% endblock %}
+</div>
+{% include "partials/_footer.html" %}

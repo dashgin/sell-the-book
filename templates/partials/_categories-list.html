@@ -1,0 +1,17 @@
+<style>
+    .category-slider__item a:hover {
+        text-decoration: underline;
+    }
+</style>
+<div class="row py-3 px-5">
+
+    <div class="category-slider owl-carousel owl-theme border-3 border-bottom px-5 py-1">
+        {% for category in categories_list %}
+            <div class="category-slider__item text-center">
+                <a href="{% url 'products-by-category' category.slug %}" class="h4 text-dark ">
+                    {{ category.name }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

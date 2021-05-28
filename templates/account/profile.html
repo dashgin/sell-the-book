@@ -1,0 +1,51 @@
+{% extends 'partials/_base.html' %}
+{% load humanize %}
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+
+    <div class="container pt-4">
+        <div class="row shadow bg-gradient bg-primary justify-content-sm-between">
+            <p class="text-white display-6 text-capitalize col-10 mb-2 ps-4">{{ request.user.full_name }}</p>
+            <div class="col-1 pt-1 btn-primary text-center">
+                <a href="{% url 'profile-settings' request.user.id %}" class="fs-3 text-white">
+                <i class="fas fa-user-cog fs-3 pt-md-2 pt-1"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row my-3 mx-auto justify-content-center">
+            <h3 class="heading mb-2"><span>Elanlarım</span></h3>
+            {% for book in books %}
+                <div class="col-6 col-md-4 col-lg-3 mx-auto my-3">
+                    <div class="card">
+                        <div class="card-header bg-transparent p-0">
+                            <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap"
+                                 height="150px">
+                        </div>
+                        <div class="card-body position-relative py-2 px-2">
+                            <span class="text -white h5"><strong>{{ book.price }} AZN</strong></span>
+                            {#<span class="text-danger fs-4 position-absolute top-0 end-0 me-1 heart"><i class="far fa-heart p-1"></i></span>#}
+                            <h6 class="mt-2 mb-1 card-text"><a href="{% url 'product-detail' book.slug %}"
+                                                               class="text-dark">
+                                {{ book.title }}
+                            </a></h6>
+                            <span>{{ book.author }}</span>
+                        </div>
+                        <div class="card-footer py-0 px-2">
+                            <small class="text-success float-start">{{ book.created_at|naturaltime }}</small>
+                            <small class="float-end">{{ book.total_hit_count }} <i class="fas fa-eye"></i></small>
+                        </div>
+                        <div class="card-body py-2 text-end">
+                            <a class="btn btn-primary mb-1 mb-sm-0 float-start"
+                               href="{% url 'product-delete' book.slug %}">
+                                VIP et
+                            </a>
+                            <a class="btn btn-danger mb-1 mb-sm-0" href="{% url 'product-delete' book.slug %}">Sil</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

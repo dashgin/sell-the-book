@@ -1,0 +1,33 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% block title %}Səhifəyə giriş{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/form.css'%}">
+    <section id="formHolder">
+
+        <div class="container" style=" max-width: 900px;">
+            <div class="row">
+                <!-- Brand Box -->
+                <div class="col-md-6 col-12  brand">
+                    <div class="heading">
+                        <h2>STB</h2>
+                        <p>Your Right Choice</p>
+                    </div>
+                </div>
+                <!-- Form Box -->
+                <div class="col-sm-6 form">
+
+                    <div class="login-div form-peice">
+                        {% block login %}
+                        {% endblock %}
+                    </div>
+                    <div class="signup-div form-peice {% if 'login' in request.path %} switched {% endif %}">
+                        {% block signup %}
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

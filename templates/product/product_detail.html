@@ -1,0 +1,69 @@
+{% extends "partials/_base.html" %}
+{% load humanize %}
+{% load static %}
+{% block title %}Kitab - {{ product.title }}{% endblock %}
+{% block content %}
+
+<section class=" align-items-center">
+    <div class="container align-middle h-100 my-3">
+        <div class="row h-100 align-items-center">
+            <div class="col-md col-12 img-thumbnail py-1">
+                <img src="{{ product.image.url }}" class="w-100" alt="book">
+            </div>
+            <div class="col-md col-12 ps-md-5 align-middle ">
+                <table class="table table-sm table-success table-striped table-hover fs-6 align-self-center">
+                    <tr>
+                        <td>Elan sahibi:</td>
+                        <td>{% if product.owner.full_name %}
+                            {{ product.owner.full_name }}
+                            {% else %}
+                            {{ product.owner.email }}
+                            {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Kitabın adı:</td>
+                        <td>{{ product.title }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Kitabın yazıçısı:</td>
+                        <td> {{ product.author }}</td>
+                    </tr>
+                    <tr>
+                        <td>Qeydlər:</td>
+                        <td> {{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>Qiyməti: </td>
+                        <td>{{ product.price }} AZN</td>
+                    </tr>
+                    <tr>
+                        <td>Miqdarı:</td>
+                        <td> {{ product.amount }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kateqoriya: </td>
+                        <td>{{ product.category }}</td>
+                    </tr>
+                    <tr>
+                        <td>Telefon nömrəsi:</td>
+                        <td><a href="tel:{{ product.phone_number }}">{{ product.phone_number }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>Əlavə əlaqə: </td>
+                        <td>{{ product.additional_contact }}</td>
+                    </tr>
+                    <tr>
+                        <td>Görüntülənmə sayı: </td>
+                        <td>{{ product.view_count }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-end"><small>{{ product.created_at|naturaltime }} yerləşdirilib</small></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

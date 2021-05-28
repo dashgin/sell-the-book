@@ -1,0 +1,42 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Yeni Elan{% endblock %}
+{% block content %}
+    <style>
+        select:invalid {
+            color: gray;
+        }
+    </style>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" class="form-control mx-auto my-5">
+            {% csrf_token %}
+            <div class="form-group">
+                {% for field in form.visible_fields %}
+
+                    {% if form.is_bound %}
+                        {% if field.errors %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field|add_class:'form-control is-invalid' }}
+
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        {% else %}
+
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field|add_class:'form-control is-valid' }}
+                        {% endif %}
+                    {% else %}
+
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% render_field field class="form-control my-2" placeholder=field.label %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+            <button type="submit" class="btn btn-primary w-100 fs-5">Elanı yerləşdir</button>
+        </form>
+    </div>
+{% endblock %}

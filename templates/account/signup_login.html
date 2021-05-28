@@ -1,0 +1,106 @@
+{% extends "partials/_base.html" %}
+{#{% load socialaccount %}#}
+{% load static %}
+{% block title %}Səhifəyə giriş{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <section id="formHolder">
+        <div class="container" style="max-width: 900px;">
+            <div class="row">
+                <div class="col-md-6 col-12  brand">
+                    <div class="heading">
+                        <h2>STB</h2>
+                        <p>Your Right Choice</p>
+                        <br>
+                    </div>
+                    <div class="form-group ">
+                        {% if messages %}
+                            <div class="messages">
+                                <div class="alert alert-success">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Form Box -->
+                <div class="col-sm-6 form">
+                    <!-- Login Form -->
+                    <div class="login-div form-peice">
+
+                        <form class="login" method="POST" action="{% url 'account_login' %}">
+                            {% csrf_token %}
+{#                            <div>#}
+{#                                <div class=" d-flex justify-content-center">#}
+{#                                    <a href="{% provider_login_url "google" %}"#}
+{#                                       class="btn btn-danger rounded-circle m-2 fs-4"><i class="fab fa-google"></i></a>#}
+{#                                    <a href="#" class="btn btn-primary rounded-circle m-2 fs-4 px-3"><i#}
+{#                                            class="fab fa-facebook-f"></i></a>#}
+{#                                </div>#}
+{#                                <span class="d-block text-center">OR:</span>#}
+{#                            </div>#}
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="email" name="login"
+                                       placeholder="E-mail address"
+                                       autocomplete="email" required="" id="id_login">
+                                <label for="id_login">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="password" name="password"
+                                       placeholder="Parol"
+                                       autocomplete="current-password" required="" id="id_password">
+                                <label for="id_password">Parol</label>
+                            </div>
+                            <div class="d-flex justify-content-center flex-column">
+                                <a class="button secondaryAction btn btn-link text-end"
+                                   href="{% url 'account_reset_password' %}">
+                                    Parolu unutmuşam
+                                </a>
+                                <button class="btn btn-outline-danger primaryAction" type="submit">Sign In</button>
+                                <a href="#" class="switch btn btn-link text-danger shadow-none">Qeydiyyatdan keç</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Login Form -->
+                    <!-- Signup Form -->
+                    <div class="signup-div form-peice switched">
+                        <form class="signup signup-form" id="signup_form" method="post"
+                              action="{% url 'account_signup' %}">
+                            {% csrf_token %}
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="email" name="email"
+                                       placeholder="E-mail address" autocomplete="email" required="" id="id_email">
+                                <label for="id_email">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="text"
+                                       name="full_name" placeholder="Ad soyad"
+                                       autocomplete="name" maxlength="50" required=""
+                                       id="id_full_name">
+                                <label for="id_full_name">Ad soyad</label>
+                            </div>
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="password" name="password1"
+                                       placeholder="Parol"
+                                       autocomplete="new-password" required="" id="id_password1">
+                                <label for="id_password1">Parol</label>
+                            </div>
+                            <div class="form-floating mb-1">
+                                <input class="form-control shadow-none" type="password"
+                                       name="password2" placeholder="Parol (bir daha)" required="" id="id_password2">
+                                <label for="id_password2">Parol (bir daha)</label>
+                            </div>
+                            <div class="d-flex justify-content-center my-4 flex-column">
+                                <button class="btn btn-outline-danger" type="submit" id="submit">Sign Up</button>
+                                <a href="#" class="switch btn btn-link text-danger shadow-none">Hesabım var</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Signup Form -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Əlaqə{% endblock %}
+{% block content %}
+
+    <style>
+        textarea {
+            height: 14rem !important
+        }
+    </style>
+    <section class="my-5">
+        <div class="container">
+            <div class="row bg-dark py-3">
+                <div class="col-md-8 offset-md-2 text-center ">
+                    <h3 class="text-white fs-1">Contact Us</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-us-content p-4">
+                        <h1 class="pt-3">Hello, what's on your mind?</h1>
+                        <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elit dolor,
+                            blandit
+                            vel euismod ac, lentesque et dolor. Ut id tempus ipsum.Lorem ipsum dolor sit amet,
+                            consectetur
+                            adipiscing elit. Nulla elit dolor, blandit vel euismodac, lentesque et dolor. Ut id
+                            tempus</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form method="POST" novalidate style="user-select: none">
+                        {% csrf_token %}
+                        {% for field in form.visible_fields %}
+                            <div class="form-floating">
+                                {% if form.is_bound %}
+                                    {% if field.errors %}
+                                        {{ field|add_class:'form-control shadow-none is-invalid' }}
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {% for error in field.errors %}
+                                            <div class="invalid-feedback">{{ error }}</div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ field|add_class:'form-control shadow-none is-valid' }}
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {% endif %}
+                                {% else %}
+                                    {% render_field field class="form-control my-2" placeholder=field.label %}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {% endif %}
+                            </div>
+
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary w-100" id="sendMessageButton">Göndər
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "partials/_base.html" %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}STB{% endblock %}
+
+{% block content %}
+
+    <!--Home Section-->
+    <section id="home" class="mt-0 w-100">
+        <div class="container">
+            <div class="row py-0">
+                <div class="col-12 col-sm-8 col-xxl-6 mx-auto mobile-text">
+                    <h2 class="text-dark display-1 fw-bold text-center">Mobile App</h2>
+                    <div class="text-center mt-5  mt-sm-3">
+                        <a class="btn btn-outline-dark btn-lg text-nowrap ps"><span></span> Play Store</a>
+                        <a class="btn btn-outline-dark btn-lg text-nowrap"><span></span> App Gallery</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="books">
+        <div class="container pt-4 w-sm-75 w-100">
+
+            {% include 'partials/_categories-list.html' %}
+
+            <div class="row">
+                <h3 class="heading"><span>Premium Kitablar</span></h3>
+                {% for book in products_featured %}
+                    <div class="col-6 col-md-4 col-lg-3 mx-auto my-3">
+                        <div class="card hover-shadow">
+                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img src="{{ book.image.url }}" class="img-fluid mx-auto" alt="{{ book.title }}"
+                                     style="height: 200px; width: 100%">
+                                <a href="{% url 'product-detail' book.slug %}">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                </a>
+                            </div>
+                            <div class="card-body py-2 border-top">
+                                <h5 class="card-title">
+                                    <a class="text-dark"
+                                       href="{% url 'product-detail' book.slug %}">{{ book.title }}</a>
+                                </h5>
+                                <p class="card-subtitle">
+                                    {{ book.author|truncatechars:90|safe }}
+                                </p>
+                                <h5 class="card-text text-end">
+                                    <a class="text-dark" href="{% url 'product-detail' book.slug %}">
+                                        {{ book.price }} AZN</a>
+                                </h5>
+                            </div>
+                            <div class="card-footer text-end py-0">
+                                {{ book.view_count }} <i class="far fa-eye"></i>
+                                <small class="text-muted float-start">{{ book.created_at|naturaltime }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <div class="row">
+                <h3 class="heading"><span>Son əlavə edilmişlər</span></h3>
+                {% for book in products %}
+                    <div class="col-6 col-md-4 col-lg-3 mx-auto my-3">
+                        <div class="card hover-shadow">
+                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img src="{{ book.image.url }}" class="img-fluid mx-auto" alt="{{ book.title }}"
+                                     style="height: 200px; width: 100%">
+                                <a href="{% url 'product-detail' book.slug %}">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                </a>
+                            </div>
+                            <div class="card-body py-2 border-top">
+                                <h5 class="card-title">
+                                    <a class="text-dark"
+                                       href="{% url 'product-detail' book.slug %}">{{ book.title }}</a>
+                                </h5>
+                                <p class="card-subtitle">
+                                    {{ book.author|truncatechars:90|safe }}
+                                </p>
+                                <h5 class="card-text text-end">
+                                    <a class="text-dark" href="{% url 'product-detail' book.slug %}">{{ book.price }}
+                                        AZN</a>
+                                </h5>
+                            </div>
+                            <div class="card-footer text-end py-0">
+                                {{ book.view_count }} <i class="far fa-eye"></i>
+                                <small class="text-muted float-start">{{ book.created_at|naturaltime }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEW Section -->
+    {#    <h2 class="heading container"><span>Aforizmlər</span></h2>#}
+    {#    <section id="review" class="">#}
+    {#        <div class="review-slider owl-carousel owl-theme">#}
+    {#            <div class="box item">#}
+    {#                <div class="comment">#}
+    {#                    <p><i class="fas fa-quote-left"></i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo#}
+    {#                        qui dolor#}
+    {#                        porro voluptatem autem, esse voluptate aut dolore? Dignissimos, impedit?#}
+    {#                        <i class="fas fa-quote-right"></i>#}
+    {#                    </p>#}
+    {#                    <h3>John Doe</h3>#}
+    {#                </div>#}
+    {#                <div class="image">#}
+    {#                    <img src="{% static 'images/avatar.png' %}" alt="">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="box item">#}
+    {#                <div class="comment">#}
+    {#                    <p><i class="fas fa-quote-left"></i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo#}
+    {#                        qui dolor porro voluptatem autem, esse voluptate aut dolore? Dignissimos, impedit?#}
+    {#                        <i class="fas fa-quote-right"></i>#}
+    {#                    </p>#}
+    {#                    <h3>John Doe</h3>#}
+    {#                </div>#}
+    {#                <div class="image">#}
+    {#                    <img src="{% static 'images/avatar.png' %}" alt="">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="box item">#}
+    {#                <div class="comment">#}
+    {#                    <p><i class="fas fa-quote-left"></i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo#}
+    {#                        qui dolor#}
+    {#                        porro voluptatem autem, esse voluptate aut dolore? Dignissimos, impedit?#}
+    {#                        <i class="fas fa-quote-right"></i>#}
+    {#                    </p>#}
+    {#                    <h3>John Doe</h3>#}
+    {#                </div>#}
+    {#                <div class="image">#}
+    {#                    <img src="{% static 'images/avatar.png' %}" alt="">#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+
+    {#    <div class="container my-2">#}
+    {#        <div class="row justify-content-evenly">#}
+    {#            <div class="col-2 text-center bg-dark text-light p-3"> Total Books: <br>{{ total_books }}</div>#}
+    {#            <div class="col-2 text-center bg-dark text-light p-3"> Total Users: <br>{{ total_users }}</div>#}
+    {#            <div class="col-2 text-center bg-dark text-light p-3"> Total Clicks: {{ total_clicks }}</div>#}
+    {#        </div>#}
+    {#    </div>#}
+    <!-- Uni Logo Section  -->
+    <section id="brand" class="brand-slider owl-carousel owl-theme container my-4">
+        <img src="{% static 'images/ADNSU.png' %}" alt="ADNSU logo" class="item img-thumbnail mx-auto" style="height: 150px; width: auto">
+        <img src="{% static 'images/BDU.jpg' %}" alt="BDU logo"     class="item img-thumbnail mx-auto" style="height: 150px; width: auto">
+        <img src="{% static 'images/UNEC.png' %}" alt="UNEC logo"   class="item img-thumbnail mx-auto" style="height: 150px; width: auto">
+        <img src="{% static 'images/ADU.jpg' %}" alt="ADU logo"     class="item img-thumbnail mx-auto" style="height: 150px; width: auto">
+        <img src="{% static 'images/BMU.jpg' %}" alt="BMU logo"     class="item img-thumbnail mx-auto" style="height: 150px; width: auto">
+    </section>
+
+
+{% endblock %}

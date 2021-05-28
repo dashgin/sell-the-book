@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+   <div class="container mt-4">
+    <h2 class="text-center">E-mail ünanınızı təsdiq edin</h2>
+
+    <p>Təsdiq üçün e-poçt ünvanınıza bir link göndərdik. Qeydiyyat prosesini yekunlaşdırmaq üçün sizə göndərilən linki izləyin. Əgər bir neçə dəqiqə ərzində bizdən e-poçt almasanız
+        <a href="{% url 'contact' %}" class="text-primary text-decoration-underline">bizimlə</a> əlaqə saxlayın.</p>
+
+   </div>
+{% endblock %}
